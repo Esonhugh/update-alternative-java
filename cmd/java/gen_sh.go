@@ -22,6 +22,11 @@ var GenShCmd = &cobra.Command{
 			log.Error("Affect Rows is 0")
 			return
 		}
+		log.Info("You have Java version: ")
+		for _, v := range keys {
+			log.Infof("- %v: %v @ %v", v.Version, v.DetailVersion, v.JavaHome)
+		}
+		log.Info("Generate shell script")
 		shellFileContent := GenShCmds(keys)
 		err := os.WriteFile(misc.Configlocate(), []byte(shellFileContent), 0644)
 		if err != nil {
@@ -32,6 +37,9 @@ var GenShCmd = &cobra.Command{
 		log.Info("Please run following command to enable in your shell")
 		log.Infof("echo 'source %v' >> ~/.zshrc", misc.Configlocate())
 		log.Infof("echo 'source %v' >> ~/.bashrc", misc.Configlocate())
+		log.Infof("switching your Java Version With command")
+		log.Infof("use_java_<version>")
+		log.Infof("example: use_java_8")
 	},
 }
 
